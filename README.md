@@ -17,7 +17,7 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app/src
+      - .:/app
     ports:
       - 3000:8000
     networks:
