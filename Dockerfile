@@ -1,15 +1,15 @@
 FROM sickp/alpine-node:9.2.1-r1
 
-ARG USER_ID
-ARG USER_NAME
-ARG USER_GROUP=100
-ARG BASE_DIR=/app
-ARG APP_DIR=${BASE_DIR}/src
-
 RUN set -ex \
   && apk add --no-cache \
     bash \
     shadow
+
+ARG USER_ID=1000
+ARG USER_NAME=node
+ARG USER_GROUP=100
+ARG BASE_DIR=/app
+ARG APP_DIR=${BASE_DIR}/src
 
 RUN set -ex \
   && mkdir -p $APP_DIR \
