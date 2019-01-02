@@ -26,7 +26,7 @@ Your project must contain a Node application and an appropriate configuration
 version: '3.6'
 services:
   front:
-    image: lets/docker-node:0.0.1
+    image: lets/docker-node:latest
     container_name: some-name
     command: npm run dev
     env_file:

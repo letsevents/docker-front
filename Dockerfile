@@ -16,6 +16,9 @@ RUN set -ex \
   && chown -R $USER_ID.$USER_GROUP $BASE_DIR \
   && usermod -g $USER_GROUP $USER_NAME
 
+RUN apk update
+RUN apk add python
+
 WORKDIR /app/src
 
 USER $USER_ID
