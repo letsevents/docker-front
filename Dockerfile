@@ -1,9 +1,34 @@
-FROM sickp/alpine-node:9.2.1-r1
+FROM heroku/heroku:18
 
-RUN set -ex \
-  && apk add --no-cache \
-    bash \
-    shadow
+#######################################
+# NODE + NPM INSTALLATION THROUGH NVM #
+#######################################
+
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 10.15.0
+
+RUN mkdir -p $NVM_DIR
+
+# 1) NVM
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+# replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# 2) NODE + NPM
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+#############################
+# DOCKER USER CONFIGURATION #
+#############################
 
 ARG USER_ID=1000
 ARG USER_NAME=node
@@ -13,13 +38,9 @@ ARG APP_DIR=${BASE_DIR}/src
 
 RUN set -ex \
   && mkdir -p $APP_DIR \
+  && useradd -m $USER_NAME -u $USER_ID \
   && chown -R $USER_ID.$USER_GROUP $BASE_DIR \
   && usermod -g $USER_GROUP $USER_NAME
 
-RUN apk update
-RUN apk add python
-
-WORKDIR /app/src
-
 USER $USER_ID
-WORKDIR /app/src
+WORKDIR $APP_DIR
