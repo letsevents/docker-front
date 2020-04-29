@@ -9,6 +9,10 @@ ENV NODE_VERSION 10.15.0
 
 RUN mkdir -p $NVM_DIR
 
+# Although g++ is available on the base ubuntu image at build time, it is not available
+# at runtime. We will need it to compile npm packages
+RUN apt-get update && apt-get install g++ -y
+
 # 1) NVM
 # https://github.com/creationix/nvm#install-script
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
