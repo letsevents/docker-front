@@ -5,7 +5,7 @@ FROM heroku/heroku:18
 #######################################
 
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 10.15.0
+ENV NODE_VERSION 15.3.0
 
 RUN mkdir -p $NVM_DIR
 
@@ -22,9 +22,9 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # 2) NODE + NPM
 RUN source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
+  && nvm install $NODE_VERSION \
+  && nvm alias default $NODE_VERSION \
+  && nvm use default
 
 # add node and npm to path so the commands are available
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
