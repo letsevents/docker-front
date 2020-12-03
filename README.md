@@ -14,8 +14,14 @@ A new image will be generated locally with the name
 `lets/docker-node-local:latest`. Test the changes you want with this image and
 make sure they are all good.
 
-The automated build will generate a new image in dockerhub after the merge to
-the master branch.
+If you push an updated master branch, the automated build will generate a "latest" image in dockerhub.
+
+You should however always tag your release and push a tagged release:
+
+```
+git tag 0.0.x
+git push origin 0.0.x
+```
 
 ## Usage
 
