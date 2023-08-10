@@ -1,11 +1,13 @@
-FROM heroku/heroku:18
+FROM heroku/heroku:20
 
 #######################################
 # NODE + NPM INSTALLATION THROUGH NVM #
 #######################################
 
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 15.3.0
+
+# Downgrade made by 87labs🤦🤷, do not ask why
+ENV NODE_VERSION 14.19.2 
 
 RUN mkdir -p $NVM_DIR
 
