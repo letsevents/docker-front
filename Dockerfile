@@ -6,8 +6,7 @@ FROM heroku/heroku:20
 
 ENV NVM_DIR /usr/local/nvm
 
-# Downgrade made by 87labs🤦🤷, do not ask why
-ENV NODE_VERSION 14.19.2 
+ENV NODE_VERSION 18.18.2
 
 RUN mkdir -p $NVM_DIR
 
